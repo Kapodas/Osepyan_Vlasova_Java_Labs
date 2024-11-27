@@ -1,0 +1,12 @@
+com\electronicsstore\lab1javaee\servlets\CategoryServlet.class
+com\electronicsstore\lab1javaee\tables\Order.class
+com\electronicsstore\lab1javaee\DAO\OrderDAO.class
+com\electronicsstore\lab1javaee\DAO\ProductDAO.class
+com\electronicsstore\lab1javaee\tables\Product.class
+com\electronicsstore\lab1javaee\servlets\OrderServlet.class
+com\electronicsstore\lab1javaee\tables\Customer.class
+com\electronicsstore\lab1javaee\DAO\CategoryDAO.class
+com\electronicsstore\lab1javaee\servlets\ProductServlet.class
+com\electronicsstore\lab1javaee\DAO\CustomerDAO.class
+com\electronicsstore\lab1javaee\tables\Category.class
+com\electronicsstore\lab1javaee\servlets\CustomerServlet.class
