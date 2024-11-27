@@ -1,20 +1,23 @@
 package com.electronicsstore.lab1javaee.tables;
 import java.io.Serializable;
 
-public class Product {
+public class Product implements Serializable {
     private int id;
     private String name;
     private double price;
     private int categoryId;
+    private String categoryName;
 
     public Product() {}
 
-    public Product(int id, String name, double price, int categoryId) {
+    public Product(int id, String name, double price, int categoryId, String categoryName) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.categoryId = categoryId;
+        this.categoryName = categoryName;
     }
+
     // Геттеры и сеттеры
     public int getId() {
         return id;
@@ -48,6 +51,14 @@ public class Product {
         this.categoryId = categoryId;
     }
 
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -55,6 +66,7 @@ public class Product {
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", categoryId=" + categoryId +
+                ", categoryName='" + categoryName + '\'' +
                 '}';
     }
 }

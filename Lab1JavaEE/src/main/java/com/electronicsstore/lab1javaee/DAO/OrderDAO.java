@@ -52,7 +52,11 @@ public class OrderDAO {
 
     // Метод для поиска заказа по ID
     public Order findById(int id) throws SQLException {
-        String sql = "SELECT * FROM orders WHERE id = ?";
+        String sql = "SELECT o.id, o.customer_id, o.product_id, o.order_date, o.quantity, c.name AS customer_name, p.name AS product_name " +
+                "FROM orders o " +
+                "JOIN customers c ON o.customer_id = c.id " +
+                "JOIN products p ON o.product_id = p.id " +
+                "WHERE o.id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -63,6 +67,8 @@ public class OrderDAO {
                     order.setProductId(rs.getInt("product_id"));
                     order.setOrderDate(rs.getDate("order_date"));
                     order.setQuantity(rs.getInt("quantity"));
+                    order.setCustomerName(rs.getString("customer_name"));
+                    order.setProductName(rs.getString("product_name"));
                     return order;
                 }
             }
@@ -72,7 +78,10 @@ public class OrderDAO {
 
     // Метод для получения всех заказов
     public List<Order> findAll() throws SQLException {
-        String sql = "SELECT * FROM orders";
+        String sql = "SELECT o.id, o.customer_id, o.product_id, o.order_date, o.quantity, c.name AS customer_name, p.name AS product_name " +
+                "FROM orders o " +
+                "JOIN customers c ON o.customer_id = c.id " +
+                "JOIN products p ON o.product_id = p.id";
         List<Order> orders = new ArrayList<>();
         try (PreparedStatement stmt = connection.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
@@ -83,6 +92,8 @@ public class OrderDAO {
                 order.setProductId(rs.getInt("product_id"));
                 order.setOrderDate(rs.getDate("order_date"));
                 order.setQuantity(rs.getInt("quantity"));
+                order.setCustomerName(rs.getString("customer_name"));
+                order.setProductName(rs.getString("product_name"));
                 orders.add(order);
             }
         }

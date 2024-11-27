@@ -1,6 +1,7 @@
 package com.electronicsstore.lab1javaee.DAO;
 
 import com.electronicsstore.lab1javaee.tables.Product;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -49,7 +50,10 @@ public class ProductDAO {
 
     // Метод для поиска продукта по ID
     public Product findById(int id) throws SQLException {
-        String sql = "SELECT * FROM products WHERE id = ?";
+        String sql = "SELECT p.id, p.name, p.price, p.category_id, c.name AS category_name " +
+                "FROM products p " +
+                "JOIN categories c ON p.category_id = c.id " +
+                "WHERE p.id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -59,6 +63,7 @@ public class ProductDAO {
                     product.setName(rs.getString("name"));
                     product.setPrice(rs.getDouble("price"));
                     product.setCategoryId(rs.getInt("category_id"));
+                    product.setCategoryName(rs.getString("category_name"));
                     return product;
                 }
             }
@@ -68,7 +73,9 @@ public class ProductDAO {
 
     // Метод для получения всех продуктов
     public List<Product> findAll() throws SQLException {
-        String sql = "SELECT * FROM products";
+        String sql = "SELECT p.id, p.name, p.price, p.category_id, c.name AS category_name " +
+                "FROM products p " +
+                "JOIN categories c ON p.category_id = c.id";
         List<Product> products = new ArrayList<>();
         try (PreparedStatement stmt = connection.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
@@ -78,10 +85,10 @@ public class ProductDAO {
                 product.setName(rs.getString("name"));
                 product.setPrice(rs.getDouble("price"));
                 product.setCategoryId(rs.getInt("category_id"));
+                product.setCategoryName(rs.getString("category_name"));
                 products.add(product);
             }
         }
         return products;
     }
-
 }

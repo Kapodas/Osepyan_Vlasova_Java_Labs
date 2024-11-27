@@ -18,7 +18,7 @@ public class CategoryDAO {
 
     // Метод для сохранения категории
     public void save(Category category) throws SQLException {
-        String sql = "INSERT INTO categories (`name`) VALUES (?)";
+        String sql = "INSERT INTO categories (name) VALUES (?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, category.getName());
             stmt.executeUpdate();
@@ -59,6 +59,7 @@ public class CategoryDAO {
             return null;
         }
     }
+
     public List<Category> findAll() throws SQLException {
         String sql = "SELECT * FROM categories";
         List<Category> categories = new ArrayList<>();

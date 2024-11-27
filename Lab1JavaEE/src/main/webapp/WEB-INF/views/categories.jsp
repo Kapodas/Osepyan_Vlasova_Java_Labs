@@ -1,15 +1,8 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: osepa
-  Date: 14.11.2024
-  Time: 22:13
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-  <title>Список клиентов</title>
+  <title>Список категорий</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -59,7 +52,7 @@
       display: block;
       margin-top: 10px;
     }
-    .add-form input[type="text"], .add-form input[type="email"] {
+    .add-form input[type="text"] {
       width: 100%;
       padding: 10px;
       margin-top: 5px;
@@ -82,7 +75,7 @@
 </head>
 <body>
 <div class="container">
-  <h1>Список клиентов</h1>
+  <h1>Список категорий</h1>
   <c:if test="${not empty errorMessage}">
     <p class="error">${errorMessage}</p>
   </c:if>
@@ -90,20 +83,16 @@
     <tr>
       <th>ID</th>
       <th>Имя</th>
-      <th>Номер телефона</th>
-      <th>Email</th>
       <th>Действия</th>
     </tr>
-    <c:forEach var="customer" items="${customers}">
+    <c:forEach var="category" items="${categories}">
       <tr>
-        <td>${customer.id}</td>
-        <td>${customer.name}</td>
-        <td>${customer.phoneNumber}</td>
-        <td>${customer.email}</td>
+        <td>${category.id}</td>
+        <td>${category.name}</td>
         <td>
-          <form action="customer-servlet" method="post" style="display:inline;">
+          <form action="category-servlet" method="post" style="display:inline;">
             <input type="hidden" name="action" value="delete">
-            <input type="hidden" name="id" value="${customer.id}">
+            <input type="hidden" name="id" value="${category.id}">
             <input type="submit" value="Удалить">
           </form>
         </td>
@@ -111,15 +100,11 @@
     </c:forEach>
   </table>
 
-  <h2>Добавить нового клиента</h2>
-  <form action="customer-servlet" method="post" class="add-form">
+  <h2>Добавить новую категорию</h2>
+  <form action="category-servlet" method="post" class="add-form">
     <input type="hidden" name="action" value="add">
     <label for="name">Имя:</label>
     <input type="text" id="name" name="name" required>
-    <label for="phoneNumber">Номер телефона:</label>
-    <input type="text" id="phoneNumber" name="phoneNumber" required>
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required>
     <input type="submit" value="Добавить">
   </form>
 </div>

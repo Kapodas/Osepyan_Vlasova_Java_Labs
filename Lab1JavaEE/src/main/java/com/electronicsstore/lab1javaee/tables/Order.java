@@ -8,17 +8,21 @@ public class Order implements Serializable {
     private int productId;
     private Date orderDate;
     private int quantity;
+    private String customerName;
+    private String productName;
 
     // Конструктор по умолчанию
     public Order() {}
 
     // Конструктор с параметрами
-    public Order(int id, int customerId, int productId, Date orderDate, int quantity) {
+    public Order(int id, int customerId, int productId, Date orderDate, int quantity, String customerName, String productName) {
         this.id = id;
         this.customerId = customerId;
         this.productId = productId;
         this.orderDate = orderDate;
         this.quantity = quantity;
+        this.customerName = customerName;
+        this.productName = productName;
     }
 
     // Геттеры и сеттеры
@@ -62,6 +66,22 @@ public class Order implements Serializable {
         this.quantity = quantity;
     }
 
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -70,6 +90,8 @@ public class Order implements Serializable {
                 ", productId=" + productId +
                 ", orderDate=" + orderDate +
                 ", quantity=" + quantity +
+                ", customerName='" + customerName + '\'' +
+                ", productName='" + productName + '\'' +
                 '}';
     }
 }
