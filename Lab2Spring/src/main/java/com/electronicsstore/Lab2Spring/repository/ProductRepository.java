@@ -1,6 +1,6 @@
-package com.electronicsstore.lab1javaee.repository;
+package com.electronicsstore.Lab2Spring.repository;
 
-import com.electronicsstore.lab1javaee.tables.Product;
+import com.electronicsstore.Lab2Spring.table.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

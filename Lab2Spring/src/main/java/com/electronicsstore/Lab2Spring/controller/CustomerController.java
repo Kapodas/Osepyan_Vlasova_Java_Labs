@@ -1,7 +1,7 @@
-package com.electronicsstore.lab1javaee.controllers;
+package com.electronicsstore.Lab2Spring.controller;
 
-import com.electronicsstore.lab1javaee.repository.CustomerRepository;
-import com.electronicsstore.lab1javaee.tables.Customer;
+import com.electronicsstore.Lab2Spring.repository.CustomerRepository;
+import com.electronicsstore.Lab2Spring.table.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,8 +33,8 @@ public class CustomerController {
         return "redirect:/customers";
     }
 
-    @PostMapping("/delete")
-    public String deleteCustomer(@RequestParam int id) {
+    @PostMapping("/delete/{id}")
+    public String deleteCustomer(@PathVariable int id) {
         customerRepository.deleteById(id);
         return "redirect:/customers";
     }

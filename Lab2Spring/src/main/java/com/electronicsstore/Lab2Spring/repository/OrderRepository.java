@@ -1,10 +1,10 @@
-package com.electronicsstore.lab1javaee.repository;
+package com.electronicsstore.Lab2Spring.repository;
 
-import com.electronicsstore.lab1javaee.tables.Category;
+import com.electronicsstore.Lab2Spring.table.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CategoryRepository extends JpaRepository<Category, Integer> {
+public interface OrderRepository extends JpaRepository<Order, Integer> {
     // Здесь можно добавить дополнительные методы запросов, если необходимо
 }

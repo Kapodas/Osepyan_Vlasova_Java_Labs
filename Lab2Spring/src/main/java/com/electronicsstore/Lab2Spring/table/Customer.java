@@ -1,12 +1,11 @@
-package com.electronicsstore.lab1javaee.tables;
+package com.electronicsstore.Lab2Spring.table;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 
 @Entity
+@Table(name ="customers")
 public class Customer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

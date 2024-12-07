@@ -1,7 +1,7 @@
-package com.electronicsstore.lab1javaee.controllers;
+package com.electronicsstore.Lab2Spring.controller;
 
-import com.electronicsstore.lab1javaee.repository.CategoryRepository;
-import com.electronicsstore.lab1javaee.tables.Category;
+import com.electronicsstore.Lab2Spring.repository.CategoryRepository;
+import com.electronicsstore.Lab2Spring.table.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,8 +31,8 @@ public class CategoryController {
         return "redirect:/categories";
     }
 
-    @PostMapping("/delete")
-    public String deleteCategory(@RequestParam int id) {
+    @PostMapping("/delete/{id}")
+    public String deleteCategory(@PathVariable int id) {
         categoryRepository.deleteById(id);
         return "redirect:/categories";
     }
