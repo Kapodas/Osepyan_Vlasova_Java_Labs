@@ -1,6 +1,6 @@
 package com.electronicsstore.lab1javaee.controllers;
 
-import com.electronicsstore.lab1javaee.repository.CategoryRepository;
+import com.electronicsstore.lab1javaee.repository.CategoryService;
 import com.electronicsstore.lab1javaee.tables.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,11 +14,11 @@ import java.util.List;
 public class CategoryController {
 
     @Autowired
-    private CategoryRepository categoryRepository;
+    private CategoryService categoryService;
 
     @GetMapping
     public String listCategories(Model model) {
-        List<Category> categories = categoryRepository.findAll();
+        List<Category> categories = categoryService.findAll();
         model.addAttribute("categories", categories);
         return "categories";
     }
@@ -27,13 +27,13 @@ public class CategoryController {
     public String addCategory(@RequestParam String name) {
         Category category = new Category();
         category.setName(name);
-        categoryRepository.save(category);
+        categoryService.save(category);
         return "redirect:/categories";
     }
 
     @PostMapping("/delete")
     public String deleteCategory(@RequestParam int id) {
-        categoryRepository.deleteById(id);
+        categoryService.deleteById(id);
         return "redirect:/categories";
     }
 }

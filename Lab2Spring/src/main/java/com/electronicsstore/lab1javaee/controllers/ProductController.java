@@ -1,6 +1,6 @@
 package com.electronicsstore.lab1javaee.controllers;
 
-import com.electronicsstore.lab1javaee.repository.ProductRepository;
+import com.electronicsstore.lab1javaee.repository.ProductService;
 import com.electronicsstore.lab1javaee.tables.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,11 +14,11 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
-    private ProductRepository productRepository;
+    private ProductService productService;
 
     @GetMapping
     public String listProducts(Model model) {
-        List<Product> products = productRepository.findAll();
+        List<Product> products = productService.findAll();
         model.addAttribute("products", products);
         return "products";
     }
@@ -29,24 +29,24 @@ public class ProductController {
         product.setName(name);
         product.setPrice(price);
         product.setCategoryId(categoryId);
-        productRepository.save(product);
+        productService.save(product);
         return "redirect:/products";
     }
 
     @PostMapping("/delete")
     public String deleteProduct(@RequestParam int id) {
-        productRepository.deleteById(id);
+        productService.deleteById(id);
         return "redirect:/products";
     }
 
     @PostMapping("/update")
     public String updateProduct(@RequestParam int id, @RequestParam String name, @RequestParam double price, @RequestParam int categoryId) {
-        Product product = productRepository.findById(id).orElse(null);
+        Product product = productService.findById(id).orElse(null);
         if (product != null) {
             product.setName(name);
             product.setPrice(price);
             product.setCategoryId(categoryId);
-            productRepository.save(product);
+            productService.save(product);
         }
         return "redirect:/products";
     }

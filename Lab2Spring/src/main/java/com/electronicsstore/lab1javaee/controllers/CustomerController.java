@@ -1,6 +1,6 @@
 package com.electronicsstore.lab1javaee.controllers;
 
-import com.electronicsstore.lab1javaee.repository.CustomerRepository;
+import com.electronicsstore.lab1javaee.repository.CustomerService;
 import com.electronicsstore.lab1javaee.tables.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,11 +14,11 @@ import java.util.List;
 public class CustomerController {
 
     @Autowired
-    private CustomerRepository customerRepository;
+    private CustomerService customerService;
 
     @GetMapping
     public String listCustomers(Model model) {
-        List<Customer> customers = customerRepository.findAll();
+        List<Customer> customers = customerService.findAll();
         model.addAttribute("customers", customers);
         return "customers";
     }
@@ -29,13 +29,13 @@ public class CustomerController {
         customer.setName(name);
         customer.setPhoneNumber(phoneNumber);
         customer.setEmail(email);
-        customerRepository.save(customer);
+        customerService.save(customer);
         return "redirect:/customers";
     }
 
     @PostMapping("/delete")
     public String deleteCustomer(@RequestParam int id) {
-        customerRepository.deleteById(id);
+        customerService.deleteById(id);
         return "redirect:/customers";
     }
 }
