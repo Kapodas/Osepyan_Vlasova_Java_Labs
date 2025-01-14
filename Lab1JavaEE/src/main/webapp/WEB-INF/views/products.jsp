@@ -89,7 +89,7 @@
         <td>${product.id}</td>
         <td>${product.name}</td>
         <td>${product.price}</td>
-        <td>${product.categoryName}</td>
+        <td>${product.category.name}</td>
         <td>
           <form action="product-servlet" method="post" style="display:inline;">
             <input type="hidden" name="action" value="delete">

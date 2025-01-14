@@ -82,15 +82,15 @@
       <th>ID</th>
       <th>Имя заказчика</th>
       <th>Название продукта</th>
-      <th>Дата заказза</th>
+      <th>Дата заказа</th>
       <th>Количество</th>
       <th>Действия</th>
     </tr>
     <c:forEach var="order" items="${orders}">
       <tr>
         <td>${order.id}</td>
-        <td>${order.customerName}</td>
-        <td>${order.productName}</td>
+        <td>${order.customer.name}</td>
+        <td>${order.product.name}</td>
         <td><fmt:formatDate value="${order.orderDate}" pattern="yyyy-MM-dd"/></td>
         <td>${order.quantity}</td>
         <td>

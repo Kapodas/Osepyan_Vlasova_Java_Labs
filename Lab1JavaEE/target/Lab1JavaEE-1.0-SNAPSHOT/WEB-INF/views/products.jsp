@@ -81,7 +81,7 @@
       <th>ID</th>
       <th>Имя</th>
       <th>Цена</th>
-      <th>Category Name</th>
+      <th>Категория</th>
       <th>Действия</th>
     </tr>
     <c:forEach var="product" items="${products}">
@@ -89,7 +89,7 @@
         <td>${product.id}</td>
         <td>${product.name}</td>
         <td>${product.price}</td>
-        <td>${product.categoryName}</td>
+        <td>${product.category.name}</td>
         <td>
           <form action="product-servlet" method="post" style="display:inline;">
             <input type="hidden" name="action" value="delete">

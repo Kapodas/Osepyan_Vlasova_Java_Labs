@@ -4,6 +4,20 @@
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
              version="3.0">
     <persistence-unit name="default">
+        <jta-data-source>java:jboss/datasources/electronics_store</jta-data-source>
+        <class>com.electronicsstore.lab1javaee.entities.Customer</class>
+        <class>com.electronicsstore.lab1javaee.entities.Category</class>
+        <class>com.electronicsstore.lab1javaee.entities.Product</class>
+        <class>com.electronicsstore.lab1javaee.entities.Order</class>
+        <properties>
+            <property name="javax.persistence.schema-generation.database.action" value="validate"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+            <property name="hibernate.default_schema" value="public"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/electronics_store"/>
+            <property name="jakarta.persistence.jdbc.user" value="postgres"/>
+            <property name="jakarta.persistence.jdbc.password" value="Qwerty"/>
+            <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
 
+        </properties>
     </persistence-unit>
 </persistence>

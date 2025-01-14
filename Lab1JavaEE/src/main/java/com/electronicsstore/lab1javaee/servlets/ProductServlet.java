@@ -1,72 +1,57 @@
 package com.electronicsstore.lab1javaee.servlets;
 
-import java.io.*;
-import com.electronicsstore.lab1javaee.DAO.*;
-import com.electronicsstore.lab1javaee.tables.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.List;
-
+import com.electronicsstore.lab1javaee.ejb.CategoryService;
+import com.electronicsstore.lab1javaee.ejb.ProductService;
+import com.electronicsstore.lab1javaee.entities.Category;
+import com.electronicsstore.lab1javaee.entities.Product;
+import jakarta.ejb.EJB;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "productServlet", value = "/product-servlet")
 public class ProductServlet extends HttpServlet {
-    private ProductDAO productDAO;
+    @EJB
+    private ProductService productService;
+
+    @EJB
+    private CategoryService categoryService;
 
     @Override
-    public void init() throws ServletException {
-        String url = "jdbc:postgresql://localhost:5432/electronics_store?useUnicode=true&characterEncoding=UTF-8";
-        String user = "postgres";
-        String password = "Qwerty";
-        try {
-            Connection connection = DriverManager.getConnection(url, user, password);
-            productDAO = new ProductDAO(connection);
-        } catch (SQLException e) {
-            throw new ServletException("Failed to initialize ProductServlet", e);
-        }
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Product> products = productService.findAll();
+        request.setAttribute("products", products);
+        request.getRequestDispatcher("/WEB-INF/views/products.jsp").forward(request, response);
     }
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setCharacterEncoding("UTF-8");
-        try {
-            List<Product> products = productDAO.findAll();
-            request.setAttribute("products", products);
-            request.getRequestDispatcher("/WEB-INF/views/products.jsp").forward(request, response);
-        } catch (SQLException e) {
-            throw new ServletException("Failed to retrieve products", e);
-        }
-    }
-
-    @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        try {
-            if ("add".equals(action)) {
-                String name = request.getParameter("name");
-                double price = Double.parseDouble(request.getParameter("price"));
-                int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+        if ("add".equals(action)) {
+            String name = request.getParameter("name");
+            double price = Double.parseDouble(request.getParameter("price"));
+            int categoryId = Integer.parseInt(request.getParameter("categoryId"));
 
+            // Получаем Category по ID
+            Category category = categoryService.findById(categoryId);
+
+            if (category != null) {
                 Product product = new Product();
                 product.setName(name);
                 product.setPrice(price);
-                product.setCategoryId(categoryId);
-                productDAO.save(product);
-            } else if ("delete".equals(action)) {
-                int id = Integer.parseInt(request.getParameter("id"));
-                productDAO.delete(id);
-            }
-            response.sendRedirect(request.getContextPath() + "/product-servlet");
-        } catch (SQLException e) {
-            throw new ServletException("Failed to process product action", e);
-        }
-    }
+                product.setCategory(category);
 
-    public void destroy() {
+                productService.save(product);
+            }
+        } else if ("delete".equals(action)) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            productService.delete(id);
+        }
+        response.sendRedirect(request.getContextPath() + "/product-servlet");
     }
 }
