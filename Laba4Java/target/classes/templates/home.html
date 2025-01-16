@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Home</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      width: 80%;
+      margin: 50px auto;
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .menu {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .menu a {
+      margin: 0 15px;
+      padding: 10px 20px;
+      text-decoration: none;
+      color: #fff;
+      background-color: #007bff;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    .menu a:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Welcome to the Electronics Store</h1>
+  <ul class="menu">
+    <li><a href="/api/customers">Customers</a></li>
+    <li><a href="/api/categories">Categories</a></li>
+    <li><a href="/api/products">Products</a></li>
+    <li><a href="/api/orders">Orders</a></li>
+  </ul>
+</div>
+</body>
+</html>
